@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./helpers/database/connectDatabase")
+const customErrorHandler = require("./middlewares/errors/customErrorHandler")
 
 
 const router = require("./routers/index")
@@ -22,6 +23,12 @@ const PORT = process.env.PORT;
 // Routers Middleware
 
 app.use("/api", router)
+
+// Error Handler
+
+app.use(customErrorHandler);
+
+
 
 
 app.listen(PORT, () => {
