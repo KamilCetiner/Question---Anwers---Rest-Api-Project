@@ -1,7 +1,9 @@
-const User = require("../models/Users")
-const CustomError = require("../helpers/error/CustomError")
+const User = require("../models/Users");
+const CustomError = require("../helpers/error/CustomError");
+const asyncErrorWrapper = require("express-async-handler");
 
-const register = async (req, res, next) => {
+
+const register = asyncErrorWrapper(async (req, res, next) => {
 
     const name = "Keml";
     const email = "keml@gmail.com";
@@ -9,7 +11,6 @@ const register = async (req, res, next) => {
 
     //try catch
 
-    try {
         const user = await User.create({
             name,
             email,
@@ -23,14 +24,7 @@ const register = async (req, res, next) => {
             data : user
         })
     }
-    
-    catch(err) {
-        return next(err);
-
-    }
-
-
-}
+);
     //async, await
 
     
