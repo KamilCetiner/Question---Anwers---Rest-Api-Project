@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken")
 
 
 const Schema = mongoose.Schema;
@@ -12,7 +13,7 @@ const UserSchema = new Schema({
     email : {
         type : String,
         required  :[true, "Please Provide an e mail" ],
-        unique : [true, "Please try different email"],
+        unique : true,
         match : [
             /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
             "Please provide a valid email"
@@ -56,6 +57,29 @@ const UserSchema = new Schema({
         default : false
     }
 })
+
+// UserSchema Method
+
+UserSchema.methods.generateJwtFromUser = () => {
+
+    const {JWT_SECRET_KEY, JWT_EXPIRE} = process.env;
+
+    const payload = {
+        id : this._id,
+        name : this.name,
+
+    };
+
+    const token = jwt.sign(payload, JWT_SECRET_KEY, {
+        expiresIn: JWT_EXPIRE
+    });
+
+    return token;
+
+
+
+}
+
 
 // Kaydedilmeden önce Hooks Middleware kullaniliyor. Passwordu  hashlemek icin. npm install bcrypt kullandik
 
