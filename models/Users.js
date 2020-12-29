@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcrypt');
+
 
 const Schema = mongoose.Schema;
 
@@ -9,7 +11,7 @@ const UserSchema = new Schema({
     },
     email : {
         type : String,
-        required  :true,
+        required  :[true, "Please Provide an e mail" ],
         unique : [true, "Please try different email"],
         match : [
             /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
@@ -53,6 +55,31 @@ const UserSchema = new Schema({
         type: Boolean,
         default : false
     }
+})
+
+// Kaydedilmeden önce Hooks Middleware kullaniliyor. Passwordu  hashlemek icin. npm install bcrypt kullandik
+
+UserSchema.pre("save", function(next){
+
+    // Parola degismediyse
+
+    if(!this.isModified("password")) {
+        next();
+
+    }
+
+
+    bcrypt.genSalt(10, (err, salt) => {
+
+        if(err) next(err);
+
+        bcrypt.hash(this.password, salt, (err, hash) => {
+            if(err) next(err);
+            this.password = hash;
+            next()
+        });
+    });
+    
 })
 
 module.exports = mongoose.model("User", UserSchema);

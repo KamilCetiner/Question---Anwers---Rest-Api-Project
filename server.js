@@ -18,6 +18,13 @@ connectDB();
 
 
 const app = express();
+
+// Express -Body Middleware
+
+app.use(express.json());
+
+
+
 const PORT = process.env.PORT;
 
 // Routers Middleware
@@ -27,6 +34,7 @@ app.use("/api", router)
 // Error Handler
 
 app.use(customErrorHandler);
+
 
 
 
