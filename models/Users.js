@@ -60,7 +60,7 @@ const UserSchema = new Schema({
 
 // UserSchema Method
 
-UserSchema.methods.generateJwtFromUser = () => {
+UserSchema.methods.generateJwtFromUser = function(){
 
     const {JWT_SECRET_KEY, JWT_EXPIRE} = process.env;
 

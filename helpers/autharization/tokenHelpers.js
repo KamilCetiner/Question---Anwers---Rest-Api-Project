@@ -8,8 +8,7 @@ const sendJwtToClient = (user, res) => {
     
     const {JWT_COOKIE, NODE_ENV} = process.env;
 
-    return res
-    
+    return res    
     .status(200)
     .cookie("acces_token", token, {
         httpOnly : true,

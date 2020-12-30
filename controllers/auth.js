@@ -20,6 +20,8 @@ const register = asyncErrorWrapper(async (req, res, next) => {
             role
         });
 
+        const token = user.generateJwtFromUser()
+
 
         sendJwtToClient(user, res);
         
