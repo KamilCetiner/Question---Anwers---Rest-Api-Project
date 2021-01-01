@@ -21,16 +21,27 @@ const getAccessToRoute = (req, res, next) => {
     
     const accessTooken = getAccessTokenFromHeader(req);
 
-    jwt.verify(accessTooken, JWT_SECRET_KEY, (err, decoded) => {
+    jwt.verify(accessTooken, JWT_SECRET_KEY, function(err, decoded) {
 
         if(err) {
-            return next (new CustomError("Your are not authorized to access this route", 401))
+            return next (
+                new CustomError("Your are not authorized to access this route", 401)
+            );
         }
 
-        console.log(decoded)
+        req.user = {
+            id : decoded.id,
+            name : decoded.name
+
+        }
+
+        
         next();
 
     })
+
+
+
 
     //CustomError
 };
