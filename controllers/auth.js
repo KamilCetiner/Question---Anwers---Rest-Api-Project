@@ -55,6 +55,25 @@ const login = asyncErrorWrapper(async (req, res, next) => {
 
 });
 
+// Logout olmak icin hem cookies den hem de envurironment den access token imizi silmek gerekecek 
+
+const logout = asyncErrorWrapper(async (req, res, next) => {
+
+    const {NODE_ENV} = process.env;
+
+    return res.status(200).cookie({
+
+        httpOnly : true,
+        expires : new Date(Date.now()),
+        secure: NODE_ENV === "development" ? false : true
+    }).json({
+        succes : true,
+        message : "Logout Successful"
+    });
+
+
+});
+
 
 const getUser = (req, res, next) => {
 
@@ -75,5 +94,6 @@ const getUser = (req, res, next) => {
 module.exports =  {
     register,
     getUser,
+    logout,
     login
 }
