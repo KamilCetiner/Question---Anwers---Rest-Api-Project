@@ -89,11 +89,57 @@ const getUser = (req, res, next) => {
 
 };
 
+const imageUpload = asyncErrorWrapper(async (req, res, next) => {
+
+    // Image Upload Success
+
+    res.status(200)
+    .json({
+
+        succes : true,
+        message : "Image Upload Successfull"
+    })
+
+
+});
+
+// Forgot Password(Ilk önce User icerisinde getResetPasswordTokenFromUser fonksiyonunu olusturduk)
+
+const forgotPassword = asyncErrorWrapper(async (req, res, next) => {
+
+    const resetEmail = req.body.email;
+
+    const user = await User.findOne({email : resetEmail});
+
+    if (!user) {
+        return next(new CustomError('There is no user with that e mail', 400));
+    }
+
+    const resetPasswordToken = user.getResetPasswordTokenFromUser();
+
+
+    await user.save();
+
+    
+    res.json({
+        success: true,
+        message : " Token Sent to Your Email"
+
+    })
+
+
+
+
+
+});
+
 
 
 module.exports =  {
     register,
     getUser,
     logout,
-    login
+    login,
+    imageUpload,
+    forgotPassword
 }
