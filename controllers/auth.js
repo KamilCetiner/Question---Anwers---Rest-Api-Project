@@ -160,6 +160,48 @@ const forgotPassword = asyncErrorWrapper(async (req, res, next) => {
     
 });
 
+const resetPassword = asyncErrorWrapper( async(req, res, next) => {
+
+    // resetPasswordToken i query"den, password ü ise body den aliyoruz
+
+    const {resetPasswordToken} = req.query;
+
+    const {password} = req.body;
+
+    if(!resetPasswordToken) {
+        return next(new CustomError("Please provide a valid token",400 ))
+
+    }
+
+    let user = await User.findOne({
+        resetPasswordToken : resetPasswordToken,
+        resetPasswordExpire : {$gt : Date.now()} // MongoDB ye göre yapimis bir arama.
+    })
+
+    // Tarihi gecmisse, expire olmussa asagidaki hatayi dönsün diyoruz
+
+    if (!user) {
+        return next(new CustomError("Invalid Token or Session Expire", 404))
+
+    }
+
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+
+
+
+    return res.status(200)
+    .json({
+        success : true,
+        message : "Reset Password Process Successful"
+    });
+
+})
+
 
 module.exports =  {
     register,
@@ -167,5 +209,6 @@ module.exports =  {
     logout,
     login,
     imageUpload,
-    forgotPassword
+    forgotPassword,
+    resetPassword
 }
