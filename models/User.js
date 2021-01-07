@@ -66,7 +66,7 @@ const UserSchema = new Schema({
 
     }
 })
-
+ 
 // UserSchema Method
 
 UserSchema.methods.generateJwtFromUser = function(){
@@ -102,6 +102,8 @@ UserSchema.methods.getResetPasswordTokenFromUser = function() {
     this.resetPasswordToken = resetPasswordToken;
     this.resetPasswordExpire = Date.now() + parseInt(RESET_PASSWORD_EXPIRE)
 
+    return resetPasswordToken;
+
     
 
 }
@@ -113,8 +115,8 @@ UserSchema.pre("save", function(next){
 
     // Parola degismediyse
 
-    if(!this.isModified("password")) {
-        next();
+    if(!this.isModified("password")) {        
+        return next();
  
     }
 

@@ -11,7 +11,7 @@ const router = require("./routers/index")
 // Environment Variables
 
 dotenv.config({
-    path: "./config/env/config.env"
+    path: "./.env"
 });
 
 // MogoDB Connection
