@@ -7,8 +7,8 @@
 
 => Mit JWT haben wir  "Sign In", "Sign Out", "Forget Password" Operationen erstellt.
 
-=> Mit NODEMAILER Package haben wir einen Link gesendet, um ein neues E-Mail-Passwort für unsere Mail zu erstellen. 
-Außerdem haben wir unsere alte E  Mail gelöscht.
+=> Mit NODEMAILER Package haben wir einen Link zu GMail gesendet, um ein neues E-Mail-Passwort für unsere Mail zu erstellen,
+indem wir unsere alte E Mail gelöscht haben.
 
 => Wir haben unsere JWTs Cookies aufgenommen.
 
@@ -20,22 +20,22 @@ Außerdem haben wir unsere alte E  Mail gelöscht.
 
 ## These are short photo introduction about this app.
 
-![screenshot](overview/forgot_password.jpg)
-<br>
-<br>
-![screenshot](overview/gmail_reset.jpg)
-<br>
-<br>
-![screenshot](overview/gmail_reset.jpg)
-<br>
-<br>
-![screenshot](overview/logout_success.jpg)
+![screenshot](overview/success_register.jpg)
 <br>
 <br>
 ![screenshot](overview/mongodb_user.jpg)
 <br>
 <br>
-![screenshot](overview/success_register.jpg)
+![screenshot](overview/logout_success.jpg)
+<br>
+<br>
+![screenshot](overview/gmail_reset.jpg)
+<br>
+<br>
+![screenshot](overview/gmail_reset.jpg)
+<br>
+<br>
+![screenshot](overview/forgot_password.jpg)
 
 
 ### At the end of the project, following topics are to be covered;
